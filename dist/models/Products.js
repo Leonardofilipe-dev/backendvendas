@@ -22,17 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importStar(require("express"));
-const categoriesRoutes_1 = __importDefault(require("../routes/categoriesRoutes"));
-const products_Routes_1 = __importDefault(require("../routes/products.Routes"));
-const userRoutes_1 = __importDefault(require("../routes/userRoutes"));
-const router = (0, express_1.Router)();
-router.use(express_1.default.json());
-router.use(categoriesRoutes_1.default);
-router.use(products_Routes_1.default);
-router.use(userRoutes_1.default);
-exports.default = router;
+const mongoose_1 = __importStar(require("mongoose"));
+const ProductsSchema = new mongoose_1.Schema({
+    name: { type: String, required: true },
+    photo: { type: String, required: true },
+    price: { type: Number, required: true },
+    categories: { type: mongoose_1.default.Schema.Types.ObjectId, required: true, ref: "Categories" },
+}, {
+    timestamps: true,
+});
+const products = mongoose_1.default.model("Products", ProductsSchema);
+exports.default = products;
