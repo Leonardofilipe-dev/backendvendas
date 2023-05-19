@@ -1,20 +1,13 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model, Document } from 'mongoose';
 
-export interface Categories{
-    nameCategories: string,
+interface Category extends Document {
+  name: string;
 }
 
-const CategoriesSchema = new Schema<Categories>({
-    nameCategories:{type: String, required: true},
-},
-{
-    timestamps:true,
-}
+const CategorySchema = new Schema({name: {type: String, required: true,},
+});
 
-)
+const Category = model<Category>("Category", CategorySchema);
 
-const categories = mongoose.model<Categories>("Categories", CategoriesSchema)
-
-export default categories
-
-
+export default Category
+ 

@@ -1,11 +1,11 @@
 import mongoose, { Schema, model } from "mongoose";
-import {Categories} from "./Categories";
+import Categories from "../models/Categories";
 
 export interface Products{
     name: string,
     photo: string,
     price: number,
-    categories: Categories
+    categories: typeof Categories
 
 }
 

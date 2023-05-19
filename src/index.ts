@@ -1,13 +1,24 @@
-import express from "express"
-import cors from "cors"
-const app = express()
-import routes from "./routes/categoriesRoutes"
-const port = 5000
+import express from "express";
+import cors from "cors";
+import routes from "./routes/categoriesRoutes";
+import db from "./DataBase/db";
+import dotenv from "dotenv";
+dotenv.config();
 
-app.use(cors())
+db.on("error", console.log.bind(console, "Erro ao conectar ao Mongo"));
+db.once("open", () => {
+  console.log("Conectado com sucesso!");
+});
 
-app.use("/", routes)
-  app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-  })
-  
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
+app.use("/", routes);
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
+});
