@@ -8,57 +8,85 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const categoriesController = {
-    create(req, res, next) {
+const Categories_1 = __importDefault(require("../models/Categories"));
+class CategoriesController {
+    create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                res.send("Hello, World!");
+                const { name } = req.body;
+                const categories = new Categories_1.default({
+                    name,
+                });
+                yield categories.save();
+                res.status(201).json(categories);
             }
-            catch (error) {
-                next(error);
-            }
-        });
-    },
-    getAll(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                res.send("Hello, World!");
-            }
-            catch (error) {
-                next(error);
-            }
-        });
-    },
-    getById(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                res.send("Hello, World!");
-            }
-            catch (error) {
-                next(error);
-            }
-        });
-    },
-    update(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                res.send("Hello, World!");
-            }
-            catch (error) {
-                next(error);
-            }
-        });
-    },
-    delete(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                res.send("Hello, World!");
-            }
-            catch (error) {
-                next(error);
+            catch (err) {
+                res.status(500).send(err);
             }
         });
     }
-};
-exports.default = categoriesController;
+    getAll(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const categories = yield Categories_1.default.find();
+                res.json(categories);
+            }
+            catch (err) {
+                console.error(err);
+                res.status(500).send(err);
+            }
+        });
+    }
+    getById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const categoryId = req.params.id;
+                const category = yield Categories_1.default.findById(categoryId);
+                if (!category) {
+                    return res.status(404).send('Category not found!');
+                }
+                res.json(category);
+            }
+            catch (err) {
+                res.status(500).send(err);
+            }
+        });
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const categoryId = req.params.id;
+                const { name } = req.body;
+                const updatedCategory = yield Categories_1.default.findByIdAndUpdate(categoryId, { name }, { new: true });
+                if (!updatedCategory) {
+                    return res.status(404).send('Category not found!');
+                }
+                res.json(updatedCategory);
+            }
+            catch (err) {
+                res.status(500).send(err);
+            }
+        });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const categoryId = req.params.id;
+                const deletedCategory = yield Categories_1.default.findByIdAndDelete(categoryId);
+                if (!deletedCategory) {
+                    return res.status(404).send('Category not found!');
+                }
+                res.sendStatus(204);
+            }
+            catch (err) {
+                console.error(err);
+                res.status(500).send(err);
+            }
+        });
+    }
+}
+exports.default = new CategoriesController();
