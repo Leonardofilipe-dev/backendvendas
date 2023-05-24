@@ -5,7 +5,8 @@ export interface Products{
     name: string,
     photo: string,
     price: number,
-    categories: typeof Categories
+    description: string
+    category: mongoose.Types.ObjectId;
 
 }
 
@@ -13,7 +14,8 @@ const ProductsSchema = new Schema<Products>({
     name:{type: String, required: true},
     photo: {type: String, required: true},
     price: {type: Number, required: true},
-    categories: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Categories" },
+    description: {type: String, required: true},
+    category: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Categories" },
     
     
 },
@@ -23,6 +25,6 @@ const ProductsSchema = new Schema<Products>({
 
 )
 
-const products = mongoose.model<Products>("Products", ProductsSchema)
+const ProductsModel = mongoose.model<Products>("Products", ProductsSchema)
 
-export default products
+export default ProductsModel

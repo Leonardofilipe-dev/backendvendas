@@ -8,6 +8,11 @@ class CategoriesController {
 
       const { name } = req.body;
 
+      const existingCategory = await Categories.findOne({ name });
+      if (existingCategory) {
+        return res.status(409).send('Category already exists!');
+      }
+
       const categories = new Categories({
         name,
       })

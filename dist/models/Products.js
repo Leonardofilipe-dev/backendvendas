@@ -28,9 +28,10 @@ const ProductsSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     photo: { type: String, required: true },
     price: { type: Number, required: true },
-    categories: { type: mongoose_1.default.Schema.Types.ObjectId, required: true, ref: "Categories" },
+    description: { type: String, required: true },
+    category: { type: mongoose_1.default.Schema.Types.ObjectId, required: true, ref: "Categories" },
 }, {
     timestamps: true,
 });
-const products = mongoose_1.default.model("Products", ProductsSchema);
-exports.default = products;
+const ProductsModel = mongoose_1.default.model("Products", ProductsSchema);
+exports.default = ProductsModel;

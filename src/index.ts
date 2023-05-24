@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import routes from "./routes/categoriesRoutes";
+import routes from "./routes/index";
 import db from "./DataBase/db";
 import dotenv from "dotenv";
 dotenv.config();
