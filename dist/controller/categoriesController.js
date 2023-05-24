@@ -18,6 +18,10 @@ class CategoriesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { name } = req.body;
+                const existingCategory = yield Categories_1.default.findOne({ name });
+                if (existingCategory) {
+                    return res.status(409).send('Category already exists!');
+                }
                 const categories = new Categories_1.default({
                     name,
                 });
