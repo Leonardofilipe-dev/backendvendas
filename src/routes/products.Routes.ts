@@ -1,11 +1,12 @@
 import { Router } from "express";
-import Controller from "../controller/productsController";
+import Controller from "../controller/productsController"
+import Upload from "../middlewares/upload";
 
 
 const routes = Router()
 
 routes
-.post("/products", Controller.create)
+.post("/products", Upload.single("photo"), Controller.create)
 .get("/products", Controller.getAll)
 .get("/products/:id", Controller.getById)
 .put("/products/:id", Controller.update)
