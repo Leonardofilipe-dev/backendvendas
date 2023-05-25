@@ -15,8 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Products_1 = __importDefault(require("../models/Products"));
 class ProductsController {
     create(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, photo, price, description, category } = req.body;
+            const { name, price, description, category } = req.body;
+            const filename = (_a = req.file) === null || _a === void 0 ? void 0 : _a.filename;
             try {
                 const existingProduct = yield Products_1.default.findOne({ name });
                 if (existingProduct) {
@@ -25,7 +27,7 @@ class ProductsController {
                 const categoryId = category;
                 const newProduct = new Products_1.default({
                     name,
-                    photo,
+                    photo: filename,
                     price,
                     description,
                     category: categoryId

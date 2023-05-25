@@ -7,24 +7,24 @@ import Products from '../models/Products';
 
 class ProductsController {
   async create(req: Request, res: Response) {
-    
-    const { name, photo, price, description, category } = req.body;
-  
+    const { name, price, description, category } = req.body;
+    const filename = req.file?.filename;
+
     try {
       const existingProduct = await Products.findOne({ name });
       if (existingProduct) {
         return res.status(409).send('Product already exists!');
       }
 
-      const  categoryId  = category
+      const categoryId = category;
 
       const newProduct = new Products({
         name,
-        photo,
+        photo: filename,
         price,
         description,
         category: categoryId
-      })
+      });
 
       await newProduct.save();
 
