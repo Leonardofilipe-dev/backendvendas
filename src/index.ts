@@ -7,7 +7,7 @@ dotenv.config();
 
 db.on("error", console.log.bind(console, "Erro ao conectar ao Mongo"));
 db.once("open", () => {
-  console.log("Conectado com sucesso!");
+  console.log("Connected successfully!");
 });
 
 const app = express();

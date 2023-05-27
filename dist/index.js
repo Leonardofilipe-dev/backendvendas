@@ -11,7 +11,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 db_1.default.on("error", console.log.bind(console, "Erro ao conectar ao Mongo"));
 db_1.default.once("open", () => {
-    console.log("Conectado com sucesso!");
+    console.log("Connected successfully!");
 });
 const app = (0, express_1.default)();
 app.use(express_1.default.urlencoded({ extended: true }));
