@@ -5,6 +5,7 @@ import userValidate from "../validate/userValidate";
 import authLogin from "../validate/auth/login"
 
 
+
 const routes = Router()
 
 routes
