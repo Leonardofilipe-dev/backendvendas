@@ -33,7 +33,7 @@ class AuthController {
       }
 
       // Crie um token JWT para o usuário autenticado
-      const token = jwt.sign({ userId: user._id }, "seu-segredo-aqui");
+      const token = jwt.sign({ userId: user._id }, "locadora_2023");
 
       // Retorne o token como resposta
       return res.json({ token });

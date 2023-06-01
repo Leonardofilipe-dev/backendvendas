@@ -11,6 +11,7 @@ db.once("open", () => {
   console.log("Connected successfully!");
 });
 
+
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
